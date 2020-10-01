@@ -1,0 +1,31 @@
+function setCookie(key, value, expiry) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+    document.cookie = key + '=' + value + ';path=/' + ';expires=' + expires.toUTCString();
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+
+function eraseCookie(key) {
+    var keyValue = getCookie(key);
+    setCookie(key, keyValue, '-1');
+}
+var pathname = window.location.pathname; // Returns path only (/path/example.html)
+if(pathname == '/webalive2019/small-business-grants/'){
+    $( ".webalive-header-left-menu" ).addClass( "extra-form" );
+}
+
+$('.extra-form').on('click', function () {
+    setCookie('test','1','1') 
+
+ });
+
+if(pathname == '/webalive2019/contact-us/'){
+    if(getCookie('test') == '1'){
+        $( ".contact-left-side" ).hide();  
+    }
+    eraseCookie('test');
+}
